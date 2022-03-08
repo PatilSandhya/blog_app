@@ -53,18 +53,27 @@
                   <% }else{ %> 
                     <td>Chinese</td>
                     <% } %> 
-                  <td><%= allblog[i].category%></td>
-                  <td><%= allblog[i].id%></td>
-                  <td><%= allblog[i].author%></td>
+                  <td><%= allblog[i].category.categoryName%></td>
+                 
+                  <td><%= new Date(allblog[i].createdAt).toDateString();%> </td>
+                  <td><%= new Date(allblog[i].updatedAt).toDateString();%></td>
+                  <% if(allblog[i].blogStatus == 1){ %> 
                   <td>
                     <button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#modal-secondary">
                         Active
                       </button>
                   </td>
+                  <% }else{ %> 
+                    <td>
+                      <button type="button" class="btn btn-block bg-gradient-success" data-toggle="modal" data-target="#modal-secondary">
+                          Inactive
+                        </button>
+                    </td>
+                    <% } %> 
                   <td>
                     <!-- <button type="button" class="btn btn-block bg-gradient-danger">Delete</button> -->
                     <a href="/blog-view?id=<%= allblog[i]._id%>" class="btn bg-gradient-secondary">View</a>
-                    <a data-id=<%= allblog[i]._id%> class="btn bg-gradient-danger delete">delete</a>
+                    <a data-id=<%= allblog[i]._id%> class="btn bg-gradient-danger delete">Delete</a>
 
 
                   </td>

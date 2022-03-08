@@ -124,7 +124,10 @@
                 <input type="checkbox" class="form-check-input" id="gridCheck" name="isFeatured" value="true" <%=blog.isFeatured==true?'checked':''%>>
                 <label class="form-check-label" for="gridCheck">This is a featured blog</label>
               </div>
-             
+              <div class="form-group col-md-4 ">
+                <label for="inputdate">date *</label>
+                <input type="date" id="displaydate" name="updatedAt">
+              </div>
             </div>
             <div class="form-group row">
                 <div class="form-group col-md-1">
@@ -245,7 +248,11 @@ const setBlogCategoryDataInSelectOption = async (blogCategoryId, allBlogCategory
 
    
 </script>
-
+<script>
+  var today = new Date();
+  document.getElementById("displaydate").innerHTML = today;
+ 
+</script>
 <%- include('footer'); %>
 <script>
   $("#update_blog").submit(function(event){
@@ -265,6 +272,7 @@ const setBlogCategoryDataInSelectOption = async (blogCategoryId, allBlogCategory
   
   $.ajax(request).done(function(response){
     console.log("data updated");
+    //response.redirect("/blog-list");
   })
   
   })

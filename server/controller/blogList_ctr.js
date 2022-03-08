@@ -57,7 +57,7 @@ exports.update=(req, res)=>{
         if(!data){
             res.status(404).send({message:"cannot update user"});
         }else{
-            res.send(data)
+            res.send(data);
         }
     })
     .catch(err => {

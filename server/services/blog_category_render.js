@@ -17,4 +17,14 @@ exports.blog_category = (req,res)=>{
     })
 }
 
+exports.blogCategory_edit = (req, res)=>{
+    
+    axios.get('http://localhost:3000/blogcategory',{params:{id:req.query.id}})
+    .then(function(blogdata){
+        res.render("blog_edit", {blog:blogdata.data})
+    })
+    .catch(err=>{
+        res.send(err);
+    })
 
+}

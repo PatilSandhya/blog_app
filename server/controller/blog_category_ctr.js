@@ -26,6 +26,17 @@ exports.create = (req, res) => {
 }
 
 exports.find = (req, res) =>{
+    if(req.query.id){
+        const id = req.query.id;
+        console.log("thi si id" + id);
+        BlogCategory.findById(id)
+        .then(blogcategory =>{
+            res.send(blogcategory)
+        })
+        .catch(err =>{
+            res.status(500).send({message: err.message || "error occured"});
+        })
+    }else{
     BlogCategory.find()
     .then(blogcategory =>{
         res.send(blogcategory)
@@ -34,7 +45,47 @@ exports.find = (req, res) =>{
         res.status(500).send({message: err.message || "error occured"});
     })
 }
+}
 
+exports.update=(req, res)=>{
+    console.log("in update");
+    if(!req.body){
+        return res
+        .status(400)
+        .send({message:"field can not be empty"})
+    }
+    const id = req.params.id;
+    console.log(req.body);
+    BlogCategory.findByIdAndUpdate(id, {$set:req.body})
+    .then(data=>{
+        if(!data){
+            res.status(404).send({message:"cannot update user"});
+        }else{
+            res.send(data);
+        }
+    })
+    .catch(err => {
+        res.status(500).send({message:"error update user"})
+    })
+}
+
+
+exports.delete=(req, res) =>{
+    const id = req.params.id;
+    BlogCategory.findByIdAndDelete(id)
+    .then(data=>{
+        if(!data){
+            res.status(404).send({message:"conot delete"});
+        }else{
+            res.send({
+                message:"delete successfully"
+            })
+        }
+    })
+    .catch(err => {
+        res.status(500).send({message:"error delete"});
+    });
+}
 
 
 
