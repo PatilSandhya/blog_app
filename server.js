@@ -23,6 +23,7 @@ app.set("view engine","ejs");
 //app.use(express.static(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, '/public/assets')));
 app.use(express.static(path.join(__dirname, '/public/plugins')));
+app.use(express.static(path.join(__dirname, '/public/uploads')));
 
 app.use('/', require('./server/routes/admin_rt.js'));
 app.use('/', require('./server/routes/blog_category_rt.js'));

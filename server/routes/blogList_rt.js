@@ -2,6 +2,7 @@ const express = require('express');
 const route = express.Router();
 const services = require('../services/blogList_render');
 const controller = require('../controller/blogList_ctr');
+const upload = require('../middleware/upload');
 
 
 route.get('/blog-list',services.blog_list);
@@ -10,7 +11,7 @@ route.get('/blog-edit',services.blog_edit);
 
 
 route.get('/allblog',controller.find);
-route.put('/update-blog/:id',controller.update);
+route.patch('/update-blog/:id', upload, controller.update);
 route.delete('/delete-blog/:id',controller.delete);
 route.get('/detail-blog',controller.detailblog);
 route.get('/detail-blogs',controller.blogwithcategory);

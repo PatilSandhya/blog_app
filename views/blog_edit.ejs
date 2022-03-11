@@ -26,7 +26,7 @@
     <section class="content">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-        <form method="POST" id="update_blog" enctype="multipart/form-data">
+        <form  id="update_blog"  enctype="multipart/form-data">
             <div class="card-body">
             <div class="form-group row">
               <div class="form-group">
@@ -45,7 +45,7 @@
 
               <div class="form-group col-md-6">
                 <label for="inputBlogAuthor">Author *</label>
-                <input type="hidden" value="<%= blog._id%>" name="id">
+                <input type="hidden" value="<%= blog._id%>" name="id" id="id">
                 <input class="form-control" id="inputBlogAuthor" value="<%= blog.author%>" type="text" placeholder="Enter Blog Author" name="author">
               </div>
 
@@ -67,21 +67,24 @@
              <!-- tile image-->
              <div class="form-group">
                   <label for="titleImage">Title Image *</label>
+                <!-- <input class="form-control" id="inputimage" value="Copy of images[1][6].jpeg.jpg" type="text" placeholder="Enter Blog Author" name="titleImage"> -->
+
                   <div class="input-group">
                     <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="titleImage" name="titleImage" />
+
+                    <input type="file"  id="titleImage" name="titleImage" />
   
                       <!-- <input type="file" class="custom-file-input" id="titleImage" accept="image/jpg,image/jpeg,image/png,image/bmp" name="titleImage"> -->
                       <label class="custom-file-label" for="titleImage">Choose file</label>
                     </div>
-                    <div class="input-group-append">
-                   <!-- <button type="submit" class="btn bg-gradient-success">Upload</button> -->
+                    <!-- <div class="input-group-append">
+                  <button type="submit" class="btn bg-gradient-success">Upload</button>
                    <a href='http://locahost:3000/upload'>
                      <span class="input-group-text">Upload</span>
                      </a>
-                    </div>
+                    </div> -->
                   </div>
-            
+                  <img  src="/<%= blog.titleImage%>" alt="Not found" style="width:50px" hspace="20" vspace="20">
   
               </div>
             <div class="form-group ">
@@ -121,12 +124,11 @@
                   </div>
               </div> 
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="gridCheck" name="isFeatured" value="true" <%=blog.isFeatured==true?'checked':''%>>
+                <input type="checkbox" class="form-check-input" id="gridCheck" name="isFeatured" value="" <%=blog.isFeatured==true?'checked':''%>>
                 <label class="form-check-label" for="gridCheck">This is a featured blog</label>
               </div>
               <div class="form-group col-md-4 ">
-                <label for="inputdate">date *</label>
-                <input type="date" id="displaydate" name="updatedAt">
+                <input type="hidden"  value="<%= new Date() %> " name="updatedAt">
               </div>
             </div>
             <div class="form-group row">
@@ -179,7 +181,9 @@
 <script>
    var a = window.location.pathname;
   console.log("path name a:", a);
+  
   if(a == '/blog-edit'){
+
       $('input[name=blogLanguage]').change(function(){
           var value = $( 'input[name=blogLanguage]:checked' ).val();
           var languageSet = localStorage.setItem("blog_language", value);
@@ -248,26 +252,29 @@ const setBlogCategoryDataInSelectOption = async (blogCategoryId, allBlogCategory
 
    
 </script>
-<script>
-  var today = new Date();
-  document.getElementById("displaydate").innerHTML = today;
- 
-</script>
-<%- include('footer'); %>
+
 <script>
   $("#update_blog").submit(function(event){
     event.preventDefault();
-    var unindex_array = $(this).serializeArray();
-    console.log(unindex_array);
-    var data = {};
-    $.map(unindex_array, function(n,i){
-     data[n['name']]=n['value'];
-  });
+    let myForm = document.getElementById('update_blog');
+    const data = new FormData(myForm);
+    let docid = document.getElementById('id').value;
+  //data.append("author", "this is author");
+  //data.append("id", "621eaada17a6c8df9699ee57");
+
+
+    
+   
+
   console.log(data);
+  console.log(docid);
   var request ={
-    "url":`http://localhost:3000/update-blog/${data.id}`,
-    "method":"PUT",
-    "data":data
+    "url":`http://localhost:3000/update-blog/${docid}`,
+    "method":"PATCH",
+    "enctype": 'multipart/form-data',
+    "data":data, 
+    processData: false,
+    contentType: false
   }
   
   $.ajax(request).done(function(response){
@@ -278,6 +285,7 @@ const setBlogCategoryDataInSelectOption = async (blogCategoryId, allBlogCategory
   })
   
   </script>
+<%- include('footer'); %>
   
   
 
