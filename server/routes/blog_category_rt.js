@@ -2,11 +2,11 @@ const express = require('express');
 const route = express.Router();
 const services = require('../services/blog_category_render');
 const controller = require('../controller/blog_category_ctr');
+const authenticate = require('../middleware/authenticate');
 
 
-
-route.get('/blog-category',services.blog_category);
-route.get('/blog-category-edit',services.blogCategory_edit);
+route.get('/blog-category', authenticate, services.blog_category);
+route.get('/blog-category-edit', authenticate, services.blogCategory_edit);
 
 
 

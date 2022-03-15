@@ -1,8 +1,8 @@
 const axios = require('axios');
 const bcrypt = require('bcrypt');
 //const nodemailer = require("nodemailer");
-var Admin = require('../model/admin');
-
+const Admin = require('../model/admin');
+const jwt = require('jsonwebtoken');
 
 exports.HomeRoute = (req,res)=>{
     res.render('login');
@@ -25,6 +25,14 @@ exports.log_in = async(req, res)=>{
             const passMatch = await bcrypt.compare(password, AdminLogin.password);
             const name = AdminLogin.name
             const Adminemail = AdminLogin.email
+
+            const token = await AdminLogin.generateAuthToken();
+            console.log(token);
+            res.cookie("jwtoken", token, {
+                expires: new Date(Date.now() + 2589200000),
+                httpOnly:true
+            });
+
             if(!passMatch){
                 res.json({message:"wrong password"});
                 console.log("wrong password");

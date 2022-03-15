@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const bodyparser = require("body-parser");
 const path = require('path');
-
+const cookieParser = require('cookie-parser');
 const connectDB = require('./server/database/connection')
 
 
@@ -17,7 +17,7 @@ app.use(morgan('tiny'));
 connectDB();
 
 app.use(bodyparser.urlencoded({extended:true}));
-
+app.use(cookieParser());
 
 app.set("view engine","ejs");
 //app.use(express.static(__dirname + '/public'));

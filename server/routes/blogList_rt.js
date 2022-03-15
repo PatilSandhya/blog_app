@@ -3,14 +3,15 @@ const route = express.Router();
 const services = require('../services/blogList_render');
 const controller = require('../controller/blogList_ctr');
 const upload = require('../middleware/upload');
+const authenticate = require('../middleware/authenticate');
 
 
-route.get('/blog-list',services.blog_list);
-route.get('/blog-view',services.blog_view);
-route.get('/blog-edit',services.blog_edit);
+route.get('/blog-list',authenticate, services.blog_list);
+route.get('/blog-view', authenticate, services.blog_view);
+route.get('/blog-edit', authenticate, services.blog_edit);
 
 
-route.get('/allblog',controller.find);
+route.get('/allblog', controller.find);
 route.patch('/update-blog/:id', upload, controller.update);
 route.delete('/delete-blog/:id',controller.delete);
 route.get('/detail-blog',controller.detailblog);

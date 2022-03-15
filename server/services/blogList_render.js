@@ -7,6 +7,7 @@ exports.blog_list = (req,res)=>{
     axios.get('http://localhost:3000/allblog')
     .then(function(response){
     //console.log(data);
+    //res.cookie("test", 'this is cook');
         res.render('blog_list', {allblog:response.data});
         console.log(response);
     })
