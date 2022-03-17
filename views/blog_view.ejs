@@ -151,12 +151,20 @@
 <!--footer start-->
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-
+<script>
+  function pageload() {
+    var x = document.getElementById("change-link").innerHTML="View";
+    
+  }
+  window.onload=pageload;
+  </script>
 <script>
 $(document).ready(function() {
     $('#blogview').find('input, textarea, select').attr('readonly', 'readonly');
     $(':radio:not(:checked)').attr('disabled', true);
-
+    $('#summernote').summernote('disable');
+    
+    document.getElementById("titleImage").disabled = true;
 });
 
 </script>

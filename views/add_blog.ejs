@@ -71,7 +71,7 @@
                     <input type="file" class="custom-file-input" id="titleImage" name="titleImage" />
   
                       <!-- <input type="file" class="custom-file-input" id="titleImage" accept="image/jpg,image/jpeg,image/png,image/bmp" name="titleImage"> -->
-                      <label class="custom-file-label" for="titleImage">Choose file</label>
+                      <label class="custom-file-label" for="titleImage"id="filename" >Choose file</label>
                     </div>
                     <div class="input-group-append">
                    <!-- <button type="submit" class="btn bg-gradient-success">Upload</button> -->
@@ -136,7 +136,23 @@
 <!--footer start-->
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-
+<script>
+  function pageload() {
+    var x = document.getElementById("change-link").innerHTML="Add-blog";
+    
+  }
+  window.onload=pageload;
+  </script>
+  <script>
+    document.getElementById("titleImage").onchange = function() {
+      var filenm = document.getElementById("titleImage").value;
+      console.log(filenm);
+      var file_nm = filenm.replace(/C:\\fakepath\\/i, '');
+      var y = document.getElementById("filename").innerHTML=file_nm;
+    
+    };
+    
+      </script>
 <script>
   // from blog view 
   $('input[name=blogLanguage]').change(function(){

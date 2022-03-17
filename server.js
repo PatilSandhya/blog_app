@@ -19,7 +19,7 @@ connectDB();
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(cookieParser());
 
-app.set("view engine","ejs");
+app.set('view engine','ejs');
 //app.use(express.static(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, '/public/assets')));
 app.use(express.static(path.join(__dirname, '/public/plugins')));
