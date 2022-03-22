@@ -236,7 +236,7 @@ const setBlogCategoryDataInSelectOption = async (blogCategoryId, allBlogCategory
          allBlogCategoryList.forEach(oc => {
             console.log("for each oc log:", oc.language);
             //console.log("in all blog category list");
-            if(oc.language == languageId){
+            if(oc.language == languageId && oc.categoryStatus == 1){
                 $('#inputBlogCategory').append(`<option value='${oc._id}' >${oc.categoryName}</option>`)
                 //console.log("in select blog category");
             }

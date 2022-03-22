@@ -11,7 +11,11 @@ const blogCategorySchema = new mongoose.Schema(
             required: true,
             default: 1 // 1 - english, 2 - chinese
         },
-       
+        categoryStatus: {
+            type: Number,
+            required: true,
+            default: 1 // 1 - active, 2 - deleted
+        },
     }
 );
 

@@ -118,7 +118,7 @@
           <div class="form-group">
             <div class="form-group">
                 <label for="inputCategoryNameUpdate">Category Name *</label>
-                <input type="text" value="" name="id">
+                <input type="hidden" value="" name="id">
 
                 <input class="form-control" id="inputCategoryNameUpdate" type="text" value="0000000" name="categoryName" placeholder="Enter Category Name">
               </div>
@@ -208,7 +208,7 @@
   
   $.ajax(request).done(function(response){
     console.log("data updated");
-    location.reload();
+    //location.reload();
 
     //response.redirect("/blog-list");
   })
@@ -216,7 +216,7 @@
   })
   
   </script>
-  <script>
+   <!--  <script>
     if(window.location.pathname == "/blog-category"){
       console.log("in delete");
       $ondelete = $(".table tbody td a.delete");
@@ -236,6 +236,80 @@
         }
       })
     }
+  </script>  -->
+  <script>
+ if(window.location.pathname == "/blog-category"){
+      console.log("in delete");
+     
+      $ondelete = $(".table tbody td a.delete");
+      $ondelete.click(function(){
+        var id = $(this).attr("data-id");
+      
+         var request ={
+          "url":`http://localhost:3000/allblog`,
+          "method":"GET",
+        }
+          $.ajax(request).done(function(data){   
+          var par = JSON.parse(data);
+    var result = par.map(function(a) {return a.category._id;});
+    console.log(result);
+    console.log(id);
+    var record = 0;
+        for (var i = 0; i < result.length; i++) {
+          if (result[i] == id) {
+          var record = "record found in list of array";
+
+   }
+   
+    }
+    console.log(record);
+    if(record == "record found in list of array" ){
+      console.log("in if statement");
+       var status = 2; 
+            var request = {
+                "url": `http://localhost:3000/update-blogCategory/${id}`,
+                  "method": "PUT", 
+                  "data": {
+                  categoryStatus: 2,
+                }
+              }
+        $.ajax(request).done(function(response){
+          alert("you cannot delete this category");
+    console.log("data updated");
+    location.reload();
+
+    //response.redirect("/blog-list");
+  })  
+    }else
+    if(record == 0){
+      console.log("in else statement");
+      var request ={
+          "url":`http://localhost:3000/delete-blogCategory/${id}`,
+          "method":"DELETE"
+          
+        }
+        if(confirm("Are you sure you want to delete this")){
+          $.ajax(request).done(function(response){
+            location.reload();
+      console.log("data deleted");
+    })
+    
+        }
+
+    }
+
+
+  })  
+ 
+
+
+  
+
+
+        
+      })
+    }
+
   </script>
 <!--/footer end-->
   
